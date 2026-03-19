@@ -1,4 +1,6 @@
 "use client";
+
+import AttackBuilder from "../components/AttackBuilder";
 import { useState } from "react";
 
 export default function Home() {
@@ -18,25 +20,7 @@ export default function Home() {
     setResult(data);
   };
 
-  return (
-    <div style={{ padding: 30 }}>
-      <h1 style={{ fontSize: 28, marginBottom: 20 }}>
-        🔐 InfoSec Team Toolkit
-      </h1>
-
-      {/* TOOL CARD */}
-      <div
-        style={{
-          border: "1px solid #333",
-          padding: 20,
-          borderRadius: 10,
-          maxWidth: 500,
-        }}
-      >
-        <h2>Whois Lookup</h2>
-
-<button
-  onClick={async () => {
+  const findSubdomains = async () => {
     const res = await fetch("/api/subdomain", {
       method: "POST",
       headers: {
@@ -47,18 +31,26 @@ export default function Home() {
 
     const data = await res.json();
     setResult(data);
-  }}
-  style={{
-    marginTop: 10,
-    padding: 10,
-    width: "100%",
-    background: "#0099ff",
-    border: "none",
-  }}
->
-  Find Subdomains
-</button>
-        
+  };
+
+  return (
+    <div style={{ padding: 30 }}>
+      <h1 style={{ fontSize: 28, marginBottom: 20 }}>
+        🔐 InfoSec Team Toolkit
+      </h1>
+
+      <AttackBuilder />
+
+      <div
+        style={{
+          border: "1px solid #333",
+          padding: 20,
+          borderRadius: 10,
+          maxWidth: 500,
+        }}
+      >
+        <h2>Whois Lookup</h2>
+
         <input
           placeholder="example.com"
           value={domain}
@@ -77,7 +69,20 @@ export default function Home() {
             cursor: "pointer",
           }}
         >
-          Run Tool
+          Run Whois
+        </button>
+
+        <button
+          onClick={findSubdomains}
+          style={{
+            marginTop: 10,
+            padding: 10,
+            width: "100%",
+            background: "#0099ff",
+            border: "none",
+          }}
+        >
+          Find Subdomains
         </button>
 
         {result && (
@@ -94,6 +99,10 @@ export default function Home() {
             {JSON.stringify(result, null, 2)}
           </pre>
         )}
+      </div>
+    </div>
+  );
+}
       </div>
     </div>
   );
