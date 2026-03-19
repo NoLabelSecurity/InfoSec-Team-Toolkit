@@ -19,33 +19,58 @@ export default function Home() {
   };
 
   return (
-    <div style={{ padding: 40 }}>
-      <h1>🔐 InfoSec Team Toolkit</h1>
+    <div style={{ padding: 30 }}>
+      <h1 style={{ fontSize: 28, marginBottom: 20 }}>
+        🔐 InfoSec Team Toolkit
+      </h1>
 
-      <input
-        placeholder="example.com"
-        value={domain}
-        onChange={(e) => setDomain(e.target.value)}
-        style={{ padding: 10, marginRight: 10 }}
-      />
+      {/* TOOL CARD */}
+      <div
+        style={{
+          border: "1px solid #333",
+          padding: 20,
+          borderRadius: 10,
+          maxWidth: 500,
+        }}
+      >
+        <h2>Whois Lookup</h2>
 
-      <button onClick={lookup} style={{ padding: 10 }}>
-        Whois Lookup
-      </button>
+        <input
+          placeholder="example.com"
+          value={domain}
+          onChange={(e) => setDomain(e.target.value)}
+          style={{ width: "100%", padding: 10, marginTop: 10 }}
+        />
 
-      {result && (
-        <pre
+        <button
+          onClick={lookup}
           style={{
-            marginTop: 20,
-            background: "#000",
-            color: "#0f0",
+            marginTop: 10,
             padding: 10,
-            overflow: "auto",
+            width: "100%",
+            background: "#00ff99",
+            border: "none",
+            cursor: "pointer",
           }}
         >
-          {JSON.stringify(result, null, 2)}
-        </pre>
-      )}
+          Run Tool
+        </button>
+
+        {result && (
+          <pre
+            style={{
+              marginTop: 15,
+              background: "#000",
+              color: "#0f0",
+              padding: 10,
+              fontSize: 12,
+              overflow: "auto",
+            }}
+          >
+            {JSON.stringify(result, null, 2)}
+          </pre>
+        )}
+      </div>
     </div>
   );
 }
