@@ -35,6 +35,30 @@ export default function Home() {
       >
         <h2>Whois Lookup</h2>
 
+<button
+  onClick={async () => {
+    const res = await fetch("/api/subdomain", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ domain }),
+    });
+
+    const data = await res.json();
+    setResult(data);
+  }}
+  style={{
+    marginTop: 10,
+    padding: 10,
+    width: "100%",
+    background: "#0099ff",
+    border: "none",
+  }}
+>
+  Find Subdomains
+</button>
+        
         <input
           placeholder="example.com"
           value={domain}
